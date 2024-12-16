@@ -1,10 +1,11 @@
-import { User } from "../models/userSchema.js";
+import { User } from "../models/user.model.js";
+import loginDevice from "../utils/loginDevice.js";
 
 
 export const signup = async (req, res) => {
     try {
-        const { firstName, lastName, email, phoneNumber, password,role } = req.body;
-        if (!firstName || !lastName || !email || !phoneNumber || !password || !role) {
+        const { firstName, lastName, email, phoneNumber, password,role,taxStatus,taxId,taxLicenseImage,accountNo,shippingAddress,billingAddress } = req.body;
+        if (!firstName || !lastName || !email || !phoneNumber || !password || !role || !accountNo ||!shippingAddress || !billingAddress ) {
             return res.status(400).json({ success: true, message: "Provide all required details" })
         }
 
@@ -12,9 +13,15 @@ export const signup = async (req, res) => {
         if (user) {
             return res.status(400).json({ success: true, message: "email already registered" });
         }
-
-        const newUser = await User.create({firstName, lastName, email, phoneNumber, password,role});
-
+        const {systemIp, deviceInfo, ipLocation} = await loginDevice(req);
+        const deviceDetails ={
+            systemIp: systemIp?.toString() || "", 
+            deviceInfo: deviceInfo?.toString() || "", 
+            ipLocation: ipLocation?.toString() || ""
+        }
+        const newUser = await User.create({firstName, lastName, email, phoneNumber, password,role,taxStatus,taxId,taxLicenseImage,deviceDetails,accountNo,shippingAddress,billingAddress });
+        
+       
         const token = newUser.generateToken();
 
         return res.status(200).json({ success: true, token, message: "User registered successfully" });

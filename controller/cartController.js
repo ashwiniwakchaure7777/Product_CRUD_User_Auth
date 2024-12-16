@@ -1,4 +1,4 @@
-import { Cart } from "../models/cartSchema.js";
+import { Cart } from "../models/cart.model.js";
 
 export const viewCart = async (req, res) => {
     try {

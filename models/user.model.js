@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
-import { type } from "os";
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -34,6 +33,55 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         enum:["admin","user","superadmin"]
+    },
+    licenseDetails:{
+        taxStatus: {
+            type: String,
+            trim: true,
+            default: "exempt",
+            enum: ["taxation", "exempt"],
+          },
+          taxId: {
+            type: String,
+            trim: true,
+            default: "",
+          },
+          taxLicenseImage: {
+            type: String,
+            trim: true,
+            default: "",
+          },
+    },
+    accountNo:{
+        type:Number,
+        required:true
+    },
+    deviceDetails:{
+        systemIp:{
+            type:String,
+
+        },
+        deviceInfo:{
+            type:String,
+            default:"Lenovo laptop"
+        },
+        ipLocation:{
+            type:String
+        }
+    },
+    rememberToken:{
+        type:String
+    },
+    fcmToken:{
+        type:String
+    },
+    shippingAddress:{
+        type:String,
+        required:true,
+    },
+    billingAddress:{
+        type:String,
+        required:true
     }
 },
 {
