@@ -1,6 +1,5 @@
 import express from "express";
 import { createproduct, getDetails, editproduct, deleteproduct, allProducts } from "../controller/productController.js";
-import {authentication} from "../middlewares/authentication.js";
 import { authorization } from "../middlewares/authorization.js";
 
 

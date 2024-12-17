@@ -6,26 +6,26 @@ const categorySchema = new mongoose.Schema({
         required: true
     },
     categoryImage: {
-        type: String,
-        required: true
+        type: String, required: true,
+
     },
     categoryDescription: {
         type: String,
-        default:"",
+        default: "",
         required: true,
     },
     isDeleted: {
         type: Boolean,
         default: false,
-    }, 
+    },
     varientCreatedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
-}, 
-{
-    timestamps: true
-}
+},
+    {
+        timestamps: true
+    }
 )
 
-export default Category = mongoose.model("Category", categorySchema); 
+export const Category = mongoose.model("Category", categorySchema); 

@@ -3,7 +3,7 @@ import { Product } from "../models/product.model.js";
 
 export const createproduct = async (req, res) => {
     try {
-        const { productName, price, qty, category } = req.body;
+        const { productName, price, qty,} = req.body;
 
         // Proceed only if the user is authorized
         if (!productName || !price || !qty || !category) {
