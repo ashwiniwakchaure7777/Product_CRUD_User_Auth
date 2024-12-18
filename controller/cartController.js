@@ -91,13 +91,13 @@ export const addToCart = async (req, res) => {
         });
       }
 
-      if (qty > isProduct?.qty) {
+      if (qty > isProduct?.itemInfo?.qty) {
         return res.status(400).json({
           success: false,
           message: "Order qty is out of stock",
         });
       }
-      price = isProduct?.price;
+      price = isProduct?.itemInfo?.sellingPrice;
     }
     
     const subTotal = parseFloat(price) * parseInt(qty);

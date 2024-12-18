@@ -6,7 +6,7 @@ import cartRoute from "./route/cartRoute.js";
 import categoryRoute from "./route/categoryRoute.js";
 import subcategoryRoute from "./route/subcategoryRoute.js";
 import brandRoute from "./route/brandRoute.js";
-import orderRoute from "./route/cartRoute.js";
+import orderRoute from "./route/orderRoute.js";
 import cookieparser from "cookie-parser";
 import dotenv from "dotenv";
 import cloudinaryConnect from "./config/cloudinary.js";

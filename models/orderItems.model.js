@@ -6,8 +6,7 @@ const orderItemSchema = new mongoose.Schema({
         ref:"Order"
     },
     orderNo:{
-        type:Number,
-        required:true
+        type:Number
     },
     productId:{
         type:mongoose.Schema.Types.ObjectId,
@@ -35,4 +34,4 @@ const orderItemSchema = new mongoose.Schema({
     }
 })
 
-export default OrderItem = mongoose.model("OrderItem",orderItemSchema);
+export const OrderItem = mongoose.model("OrderItem",orderItemSchema);

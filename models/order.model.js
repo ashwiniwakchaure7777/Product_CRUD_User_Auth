@@ -11,32 +11,25 @@ const orderSchema = new mongoose.Schema({
         type: Number
     },
     totalAmount: {
-        type: Number,
-        required: true
+        type: Number
     },
     totalQty: {
-        type: Number,
-        required: true,
+        type: Number
     },
     totalTax: {
-        type: Number,
-        required: true,
+        type: Number
     },
     discount: {
-        type: Number,
-        required: true,
+        type: Number
     },
     grandTotal: {
-        type: Number,
-        required: true,
+        type: Number
     },
     shippingAddress: {
-        type: Object,
-        required: true,
+        type: Object
     },
     billingAddress: {
-        type: Object,
-        required: true
+        type: Object
     }
 
 },
