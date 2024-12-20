@@ -11,9 +11,9 @@ const authorization = (...role) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRETKEY);
-    console.log(decoded);
+    // console.log(decoded);
     req.user = await User.findById(decoded.id);
-    console.log(req.user);
+    // console.log(req.user);
 
     if (!req?.user || !req?.user?.role) {
       return res.status(401).json({  //not authorised

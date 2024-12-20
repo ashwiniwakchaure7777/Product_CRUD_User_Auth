@@ -14,19 +14,21 @@ import fileupload from "express-fileupload";
 
 
 
+
 const app = express();
 dotenv.config({path:'./config/.env'});
-
 
 app.use(cookieparser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use(fileupload({
-   useTempFiles: true,
-   tempFileDir: '/tmp/', // Temporary directory for uploaded files
-   createParentPath: true, // Ensures the temp directory exists
- }));
+// app.use(fileupload({
+//    useTempFiles: true,
+//    tempFileDir: '/tmp/', // Temporary directory for uploaded files
+//    createParentPath: true, // Ensures the temp directory exists
+//  }));
+
+
 
 app.use("/api/product", productRoute);
 app.use("/api/user",userRoute);

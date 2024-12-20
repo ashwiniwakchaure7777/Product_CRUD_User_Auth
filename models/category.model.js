@@ -6,9 +6,9 @@ const categorySchema = new mongoose.Schema({
         required: true
     },
     categoryImage: {
-        type: String, required: true,
-
-    },
+        public_id: {type:String},
+        url: {type:String},
+      },
     categoryDescription: {
         type: String,
         default: "",

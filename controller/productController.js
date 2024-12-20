@@ -52,10 +52,12 @@ export const createproduct = async (req, res) => {
 
 export const allProducts = async (req, res) => {
   try {
-    const products = await Product.find();
 
-    const totalProduct = await Product.countDocuments();
-    console.log(totalProduct);
+    const [products, totalProduct] = await Promise.all([
+      Product.find(),
+      Product.countDocuments()
+    ])
+  
     return res.status(200).json({
       success: true,
       products,
@@ -117,12 +119,13 @@ export const editproduct = async (req, res) => {
       .json({ success: false, message: "Internal server error" });
   }
 };
+
 export const deleteproduct = async (req, res) => {
   try {
     const { productId } = req.params;
 
     const product = await Product.deleteOne({ _id: productId });
-    console.log(product);
+    
 
     if (product.deletedCount === 0) {
       return res
