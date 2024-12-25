@@ -6,32 +6,29 @@ import validator from "validator";
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: true,
         min: [3, "Minimum 3 characters required"]
     },
     lastName: {
         type: String,
-        required: true,
         min: [3, "Minimum 3 characters required"]
     },
     phoneNumber: {
         type: Number,
-        required: true,
         min: [10, "Minimum 10 numbers required"]
     },
     email: {
         type: String,
-        required: true,
         validate: [validator.isEmail, "Provide appropriate email"]
+    },
+    googleId:{
+        type:String,
     },
     password: {
         type: String,
-        required: true,
         min: [8, "Minimum 8 characters required"]
     },
     role:{
         type:String,
-        required:true,
         enum:["admin","user","superadmin"]
     },
     licenseDetails:{
@@ -54,7 +51,6 @@ const userSchema = new mongoose.Schema({
     },
     accountNo:{
         type:Number,
-        required:true
     },
     deviceDetails:{
         systemIp:{
@@ -77,11 +73,9 @@ const userSchema = new mongoose.Schema({
     },
     shippingAddress:{
         type:String,
-        required:true,
     },
     billingAddress:{
         type:String,
-        required:true
     }
 },
 {

@@ -10,13 +10,15 @@ import orderRoute from "./route/orderRoute.js";
 import messageRoute from "./route/messageRoute.js";
 import cookieparser from "cookie-parser";
 import dotenv from "dotenv";
-import cloudinaryConnect from "./config/cloudinary.js";
+// import cloudinaryConnect from "./config/cloudinary.js";
 import fileupload from "express-fileupload";
 import { Server } from "socket.io";
 import http from "http";
+import passport from "./config/passport.js";
+import session from "express-session";
 
 const app = express();
-dotenv.config({ path: "./config/.env" });
+dotenv.config({path:"./config/.env"});
 
 const server = http.createServer(app);
 
@@ -27,6 +29,16 @@ const io = new Server(server, {
   },
 });
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 // Middleware
 app.use(cookieparser());
 app.use(express.json());
@@ -50,6 +62,35 @@ app.use("/api/brand", brandRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/message", messageRoute);
 
+app.get("/",(req,res)=>{
+  res.send("<a href='/auth/google'>Login with Google</a>")
+})
+
+app.get(
+"/auth/google",
+passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+"/auth/google/callback",
+passport.authenticate("google", { failureRedirect: "/" }),
+(req, res) => {
+  res.redirect("/profile");
+}
+);
+
+app.get("/profile",(req,res)=>{
+  console.log(req.user)
+  res.send(`Welcome ${req.user.email}`)
+})
+
+app.get("/logout", (req, res) => {   
+req.logout((err) => {
+  if (err) return res.status(500).send("Error logging out");
+  res.redirect("/");
+});
+});
+
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
@@ -71,7 +112,8 @@ io.on("connection", (socket) => {
 server.listen(process.env.PORT || 3000, async () => {
   try {
     await dbConnection();
-    await cloudinaryConnect();
+    // await cloudinaryConnect();
+    
     console.log("Server is running on port 3000...");
   } catch (err) {
     console.error("Error starting server:", err);
